@@ -45,7 +45,7 @@ void AOrbController::OnOverlap(UPrimitiveComponent *OverlapComponent,
 	if (OtherActor == UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)){ 
 		
 		float time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: Player Overlap on %s. Game Over."), time, *GetName());
+		UE_LOG(LogTemp, Warning, TEXT("%f: Player Overlap on %s. Game Win."), time, *GetName());
 
 		//ÓÎÏ·½áÊø
 		((AMainGameMode*)GetWorld()->GetAuthGameMode())->OnGameOver(true);
