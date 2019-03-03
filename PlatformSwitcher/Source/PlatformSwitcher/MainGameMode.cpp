@@ -41,12 +41,6 @@ void AMainGameMode::OnSwitch()
 void AMainGameMode::OnGameOver(bool win)
 {
 	((UGameWidget*)CurrentWidget)->OnGameOver(win);
-	if (win == true) {
-		UE_LOG(LogTemp, Warning, TEXT("win = true"));
-	}
-	else {
-		UE_LOG(LogTemp, Warning, TEXT("win = false"));
-	}
 	UGameplayStatics::SetGamePaused(GetWorld(), true);
 }
 
@@ -64,4 +58,9 @@ void AMainGameMode::ChangeMenuWidget(TSubclassOf<class UUserWidget> NewWidgetCla
 			CurrentWidget->AddToViewport();
 		}
 	}
+}
+
+void AMainGameMode::OnRestart()
+{
+	UE_LOG(LogTemp, Warning, TEXT("OnRestart."));
 }

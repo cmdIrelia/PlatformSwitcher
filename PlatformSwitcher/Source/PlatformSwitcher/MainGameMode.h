@@ -27,6 +27,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="UMG Game")
 	void ChangeMenuWidget(TSubclassOf<class UUserWidget> NewWidgetClass);
+
+	UFUNCTION(BlueprintCallable, Category = "UMG Game")
+	void OnRestart();
 	
 protected:
 	UPROPERTY(EditAnywhere,  Category = "UMG Game")
