@@ -24,5 +24,14 @@ public:
 	void OnSwitch();
 
 	void OnGameOver(bool win);
+
+	UFUNCTION(BlueprintCallable, Category="UMG Game")
+	void ChangeMenuWidget(TSubclassOf<class UUserWidget> NewWidgetClass);
 	
+protected:
+	UPROPERTY(EditAnywhere,  Category = "UMG Game")
+	TSubclassOf<class UUserWidget> StartingWidgetClass;
+
+	UPROPERTY()
+	UUserWidget *CurrentWidget;
 };

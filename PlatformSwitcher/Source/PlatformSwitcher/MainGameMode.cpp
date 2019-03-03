@@ -3,6 +3,7 @@
 #include "MainGameMode.h"
 #include <Kismet/GameplayStatics.h>
 #include <GameFramework/Character.h>
+#include "GameWidget.h"
 
 void AMainGameMode::BeginPlay()
 {
@@ -12,6 +13,9 @@ void AMainGameMode::BeginPlay()
 		->BindAction("Switch", IE_Pressed, this, &AMainGameMode::OnSwitch);
 
 	Switched = false;
+
+	ChangeMenuWidget(StartingWidgetClass);
+	((UGameWidget*)CurrentWidget)->Load();
 }
 
 void AMainGameMode::Tick(float DeltaTime)
@@ -36,5 +40,28 @@ void AMainGameMode::OnSwitch()
 
 void AMainGameMode::OnGameOver(bool win)
 {
+	((UGameWidget*)CurrentWidget)->OnGameOver(win);
+	if (win == true) {
+		UE_LOG(LogTemp, Warning, TEXT("win = true"));
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("win = false"));
+	}
 	UGameplayStatics::SetGamePaused(GetWorld(), true);
+}
+
+void AMainGameMode::ChangeMenuWidget(TSubclassOf<class UUserWidget> NewWidgetClass)
+{
+	if (CurrentWidget != nullptr) {
+		CurrentWidget->RemoveFromViewport();
+		CurrentWidget = nullptr;
+	}
+
+	if (NewWidgetClass != nullptr) {
+		CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), NewWidgetClass);
+
+		if (CurrentWidget != nullptr) {
+			CurrentWidget->AddToViewport();
+		}
+	}
 }

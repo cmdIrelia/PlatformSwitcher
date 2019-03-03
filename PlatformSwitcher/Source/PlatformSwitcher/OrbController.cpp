@@ -42,10 +42,10 @@ void AOrbController::OnOverlap(UPrimitiveComponent *OverlapComponent,
 	bool bFromSweep,
 	const FHitResult &SweepResult)
 {
-	if (OtherActor == UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)){ 
-		
+	if (OtherActor == UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)) {
+
 		float time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: Player Overlap on %s. Game Win."), time, *GetName());
+		UE_LOG(LogTemp, Warning, TEXT("%f: Player Overlap on %s. Game Loss."), time, *GetName());
 
 		//ÓÎÏ·½áÊø
 		((AMainGameMode*)GetWorld()->GetAuthGameMode())->OnGameOver(true);

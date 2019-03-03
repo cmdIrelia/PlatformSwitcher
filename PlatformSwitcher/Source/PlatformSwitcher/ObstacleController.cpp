@@ -44,11 +44,21 @@ void AObstacleController::OnOverlap(UPrimitiveComponent *OverlapComponent,
 {
 	if (OtherActor == UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)) {
 
+		bool win = false;
+
 		float time = GetWorld()->GetTimeSeconds();
 		UE_LOG(LogTemp, Warning, TEXT("%f: Player Overlap on %s. Game Loss."), time, *GetName());
 
 		//ÓÎÏ·½áÊø
 		((AMainGameMode*)GetWorld()->GetAuthGameMode())->OnGameOver(false);
+
+		if (win == true) {
+			UE_LOG(LogTemp, Warning, TEXT("win = true"));
+		}
+		else {
+			UE_LOG(LogTemp, Warning, TEXT("win = false"));
+		}
+
 
 		//UGameplayStatics::SetGamePaused(GetWorld(), true);
 	}
