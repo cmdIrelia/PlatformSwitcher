@@ -21,11 +21,20 @@ class PLATFORMSWITCHER_API UGameWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
+
 	void Load();
 
 	void OnGameOver(bool win);
 
+	void SetTimer(float time);
+
 	UPROPERTY()
 	UTextBlock *MessageText;
+
+	UPROPERTY()
+	UTextBlock *TimerText;
+
+	UPROPERTY()
+	UTextBlock *HowToText;
 	
 };

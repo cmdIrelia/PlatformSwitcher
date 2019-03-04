@@ -30,6 +30,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "UMG Game")
 	void OnRestart();
+
+	//UFUNCTION(BlueprintCallable, Category = "UMG Game")
+	void OnQuit();
+
 	
 protected:
 	UPROPERTY(EditAnywhere,  Category = "UMG Game")
@@ -37,4 +41,6 @@ protected:
 
 	UPROPERTY()
 	UUserWidget *CurrentWidget;
+
+	float GameTime = 0;
 };

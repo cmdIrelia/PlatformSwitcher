@@ -12,6 +12,12 @@ void AMainGameMode::BeginPlay()
 	GetWorld()->GetFirstPlayerController()->InputComponent
 		->BindAction("Switch", IE_Pressed, this, &AMainGameMode::OnSwitch);
 
+	GetWorld()->GetFirstPlayerController()->InputComponent
+		->BindAction("Restart", IE_Pressed, this, &AMainGameMode::OnRestart).bExecuteWhenPaused = true;
+
+	GetWorld()->GetFirstPlayerController()->InputComponent
+		->BindAction("Quit", IE_Pressed, this, &AMainGameMode::OnQuit).bExecuteWhenPaused = true;
+
 	Switched = false;
 
 	ChangeMenuWidget(StartingWidgetClass);
@@ -21,6 +27,8 @@ void AMainGameMode::BeginPlay()
 void AMainGameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	GameTime += DeltaTime;
+	((UGameWidget*)CurrentWidget)->SetTimer(GameTime);
 }
 
 void AMainGameMode::OnSwitch()
@@ -62,5 +70,10 @@ void AMainGameMode::ChangeMenuWidget(TSubclassOf<class UUserWidget> NewWidgetCla
 
 void AMainGameMode::OnRestart()
 {
-	UE_LOG(LogTemp, Warning, TEXT("OnRestart."));
+	UGameplayStatics::OpenLevel(this, *GetWorld()->GetName(), false);
+}
+
+void AMainGameMode::OnQuit()
+{
+	UKismetSystemLibrary::QuitGame(this, UGameplayStatics::GetPlayerController(this,0), EQuitPreference::Quit,false);
 }
